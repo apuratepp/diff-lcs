@@ -2,13 +2,8 @@
 
 require 'spec_helper'
 
-def h(v)
-  v.to_s.bytes.to_a.map { |e| "%02x" % e }.join
-end
-
-describe "Diff::LCS::Hunk" do
-  if String.method_defined?(:encoding)
-
+if String.method_defined?(:encoding)
+  describe Diff::LCS::Hunk do
     let(:old_data) { ["Tu avec carté {count} itém has".encode('UTF-16LE')] }
     let(:new_data) { ["Tu avec carte {count} item has".encode('UTF-16LE')] }
     let(:pieces)   { Diff::LCS.diff old_data, new_data }
@@ -20,7 +15,8 @@ describe "Diff::LCS::Hunk" do
         -Tu avec carté {count} itém has
         +Tu avec carte {count} item has
       EOD
-      expect(hunk.diff(:unified).to_s == expected).to eql true
+
+      expect(hunk.diff(:unified)).to eq(expected)
     end
 
     it 'should be able to produce a context diff from the two pieces' do
@@ -32,7 +28,7 @@ describe "Diff::LCS::Hunk" do
         !Tu avec carte {count} item has
       EOD
 
-      expect(hunk.diff(:context).to_s == expected).to eql true
+      expect(hunk.diff(:context)).to eq(expected)
     end
 
     it 'should be able to produce an old diff from the two pieces' do
@@ -43,7 +39,8 @@ describe "Diff::LCS::Hunk" do
         > Tu avec carte {count} item has
 
       EOD
-      expect(hunk.diff(:old).to_s == expected).to eql true
+
+      expect(hunk.diff(:old)).to eq(expected)
     end
 
     it 'should be able to produce a reverse ed diff from the two pieces' do
@@ -53,7 +50,8 @@ describe "Diff::LCS::Hunk" do
         .
 
       EOD
-      expect(hunk.diff(:reverse_ed).to_s == expected).to eql true
+
+      expect(hunk.diff(:reverse_ed)).to eq(expected)
     end
 
     context 'with empty first data set' do
@@ -64,9 +62,9 @@ describe "Diff::LCS::Hunk" do
           @@ -1 +1,2 @@
           +Tu avec carte {count} item has
         EOD
-        expect(hunk.diff(:unified).to_s == expected).to eql true
+
+        expect(hunk.diff(:unified)).to eq(expected)
       end
     end
-
   end
 end

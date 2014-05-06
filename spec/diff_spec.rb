@@ -2,17 +2,17 @@
 
 require 'spec_helper'
 
-describe "Diff::LCS.diff" do
+describe Diff::LCS, ".diff" do
   include Diff::LCS::SpecHelper::Matchers
 
   it "should correctly diff seq1 to seq2" do
     diff_s1_s2 = Diff::LCS.diff(seq1, seq2)
-    change_diff(correct_forward_diff).should == diff_s1_s2
+    expect(change_diff(correct_forward_diff)).to eq(diff_s1_s2)
   end
 
   it "should correctly diff seq2 to seq1" do
     diff_s2_s1 = Diff::LCS.diff(seq2, seq1)
-    change_diff(correct_backward_diff).should == diff_s2_s1
+    expect(change_diff(correct_backward_diff)).to eq(diff_s2_s1)
   end
 
   it "should correctly diff against an empty sequence" do
@@ -24,24 +24,24 @@ describe "Diff::LCS.diff" do
         [ '-', 3, 'mnopqrstuvwxyz' ] ]
     ]
 
-    change_diff(correct_diff).should == diff
+    expect(change_diff(correct_diff)).to eq(diff)
 
     diff = Diff::LCS.diff([], word_sequence)
     correct_diff.each { |hunk| hunk.each { |change| change[0] = '+' } }
-    change_diff(correct_diff).should == diff
+    expect(change_diff(correct_diff)).to eq(diff)
   end
 
   it "should correctly diff 'xx' and 'xaxb'" do
     left = 'xx'
     right = 'xaxb'
-    Diff::LCS.patch(left, Diff::LCS.diff(left, right)).should == right
+    expect(Diff::LCS.patch(left, Diff::LCS.diff(left, right))).to eq(right)
   end
 
   it "should return an empty diff with (hello, hello)" do
-    Diff::LCS.diff(hello, hello).should == []
+    expect(Diff::LCS.diff(hello, hello)).to be_empty
   end
 
   it "should return an empty diff with (hello_ary, hello_ary)" do
-    Diff::LCS.diff(hello_ary, hello_ary).should == []
+    expect(Diff::LCS.diff(hello_ary, hello_ary)).to be_empty
   end
 end
