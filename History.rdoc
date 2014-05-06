@@ -123,8 +123,8 @@
 * Fixed a problem reported by Mauricio Fernandez in htmldiff.
 
 == 1.1.1 / 2004-09-25
-* Fixed bug #891:
-  http://rubyforge.org/tracker/?func=detail&atid=407&aid=891&group_id=84
+* Fixed bug #891 (Set returned from patch command does not contain last equal
+  part).
 * Fixed a problem with callback initialisation code (it assumed that all
   callbacks passed as classes can be initialised; now, it rescues
   NoMethodError in the event of private :new being called).

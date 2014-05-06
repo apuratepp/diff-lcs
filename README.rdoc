@@ -71,12 +71,17 @@ or Array will perform best.
 Diff::LCS is a port of Perl's Algorithm::Diff that uses the McIlroy-Hunt
 longest common subsequence (LCS) algorithm to compute intelligent differences
 between two sequenced enumerable containers. The implementation is based on
-Mario I. Wolczko's {Smalltalk version 1.2}[ftp://st.cs.uiuc.edu/pub/Smalltalk/MANCHESTER/manchester/4.0/diff.st]
+Mario I. Wolczko's
+{Smalltalk version 1.2}[ftp://st.cs.uiuc.edu/pub/Smalltalk/MANCHESTER/manchester/4.0/diff.st]
 (1993) and Ned Konz's Perl version
 {Algorithm::Diff 1.15}[http://search.cpan.org/~nedkonz/Algorithm-Diff-1.15/].
+Diff::LCS#sdiff and Diff::LCS#traverse_balanced were originally written for the
+Perl version by Mike Schilli.
 
-This library is called Diff::LCS because of an early version of Algorithm::Diff
-which was restrictively licensed.
+The algorithm is described in <em>A Fast Algorithm for Computing Longest Common
+Subsequences</em>, CACM, vol.20, no.5, pp.350-353, May 1977, with a few minor
+improvements to improve the speed. A simplified description of the algorithm,
+originally written for the Perl version, was written by Mark-Jason Dominus.
 
 :include: Contributing.rdoc
 

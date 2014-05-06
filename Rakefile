@@ -46,7 +46,12 @@ if RUBY_VERSION >= '1.9'
   namespace :spec do
     desc "Submit test coverage to Coveralls"
     task :coveralls do
-      ENV['COVERALLS'] = 'yes'
+      if ENV['CI'] or ENV['TRAVIS']
+        ENV['COVERALLS'] = 'yes'
+        Rake::Task['spec'].execute
+      else
+        Rake::Task['spec:coverage'].execute
+      end
     end
 
     desc "Runs test coverage. Only works Ruby 1.9+ and assumes 'simplecov' is installed."
